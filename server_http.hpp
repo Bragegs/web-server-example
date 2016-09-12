@@ -235,15 +235,7 @@ namespace SimpleWeb {
                 if(!ec) {
                     //request->streambuf.size() is not necessarily the same as bytes_transferred, from Boost-docs:
                     //"After a successful async_read_until operation, the streambuf may contain additional data beyond the delimiter"
-                                    float http_version;
-                        try {
-                            http_version=stof(request->http_version);
-                        }
-                        catch(const std::exception &e){
-                            if(exception_handler)
-                                exception_handler(e);
-                            return;
-                        }       //The chosen solution is to extract lines from the stream directly when parsing the header. What is left of the
+                    //The chosen solution is to extract lines from the stream directly when parsing the header. What is left of the
                     //streambuf (maybe some bytes of the content) is appended to in the async_read-function below (for retrieving content).
                     size_t num_additional_bytes=request->streambuf.size()-bytes_transferred;
                     
@@ -365,8 +357,8 @@ namespace SimpleWeb {
                     if(!ec) {
                         if(timeout_content>0)
                             timer->cancel();
-                        
-                       float http_version;
+
+                        float http_version;
                         try {
                             http_version=stof(request->http_version);
                         }
